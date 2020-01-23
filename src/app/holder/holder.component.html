@@ -1,0 +1,5 @@
+
+<div class=" d-flex flex-column align-items-center p-2 m-2 turnos">
+  <h5 class="text-white p-2 m-2 mt-4">Ultimas llamadas realizadas</h5>
+  <div [@showOnOff]="isOn ? 'on' : 'off'" *ngFor="let item of selTurnos" class="h3">{{item.turno}} - {{item.mesa}}</div>
+</div>
