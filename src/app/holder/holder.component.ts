@@ -1,55 +1,53 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { Turno } from '../turno/turno';
 import { Observable, Subscription } from 'rxjs';
+import { AnimationControlService } from '../service/animation-control.service';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-holder',
   templateUrl: './holder.component.html',
-  styleUrls: ['./holder.component.css']
+  styleUrls: ['./holder.component.css'],
+  animations: [
+    trigger('newTurn', [
+      state('void', style({
+        opacity: 0
+      })), state('show', style({
+        opacity: 1
+      })),
+      transition('void <=> show', [
+        animate('1.2s 1.2s')
+      ])
+    ])
+  ]
 })
-export class HolderComponent implements OnInit {
+export class HolderComponent implements OnInit, OnChanges {
 
   private eventsSubscription: Subscription;
-
-  @Input() events: Observable<void>;
-
-  isOn = true;
-
-  turnos = [
-    new Turno('ACJ25', 'Mesa 1'),
-    new Turno('ACJ26', 'Mesa 2'),
-    new Turno('ACJ30', 'Mesa 3'),
-    new Turno('ACJ29', 'Mesa 3'),
-    new Turno('ACJ42', 'Mesa 1'),
-    new Turno('ACJ15', 'Mesa 1'),
-    new Turno('ACJ12', 'Mesa 1'),
-    new Turno('ACJ41', 'Mesa 3'),
-    new Turno('ACJ07', 'Mesa 3'),
-    ];
-
+  animationStatus: any;
   selTurnos = [];
   turnPunt = 0;
+  turno: Turno;
 
 
-  constructor() { }
+  constructor(private acSrv: AnimationControlService) {
+    this.acSrv.currentTurno.subscribe(res => {
+      this.turno = res;
+      if (res) {
+        this.selTurnos.push(res);
+        this.animationStatus = 'show';
+      } else {
+        // FALSE
+      }
+    });
+  }
 
   ngOnInit() {
-    // Para poder leer el evento click del elemento padre
-    this.eventsSubscription = this.events.subscribe(() => this.cambioTurno());
-  }
-  cambioTurno() {
-      // comprobar para que no imprima elemento si no los hay disponibles en el array
-    if (this.turnPunt <= (this.turnos.length - 1)) {
-      // Se coloca un maximo de elementos para eliminar el de por encima.
-      if ((this.selTurnos.length - 1) >= 5) {
-        this.selTurnos.shift();
-      }
-      this.selTurnos.push(this.turnos[this.turnPunt]);
-      this.turnPunt++;
-      }
 
   }
-  toggle() {
-    this.isOn = !this.isOn;
+
+  ngOnChanges() {
+
   }
+
 }

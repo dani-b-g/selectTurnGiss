@@ -1,8 +1,8 @@
-<div class="row padres" (click)="emitEventToChild()">
-  <div class="col-9 d-flex align-items-center justify-content-center">
-    <h2>test</h2>
+<div class="row padres" (click)="cambiarTurno()">
+  <div class="col-9 d-flex align-items-center justify-content-center" [@newTurnBg]="animationStatus">
+    <h1 *ngIf=turno [@newTurn]="animationStatus">{{turno.turno}} - {{turno.mesa}}</h1>
   </div>
   <div class="col-3 d-flex text-white hold justify-content-center">
-    <app-holder [events]="eventsSubject.asObservable()" ></app-holder>
+    <app-holder></app-holder>
   </div>
 </div>
