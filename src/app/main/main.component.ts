@@ -16,7 +16,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
         opacity: 1
       })),
       transition('void <=> show', [
-        animate('1.5s')
+        animate('0.5s')
       ])
     ]), trigger('newTurnBg', [
       state('void', style({
@@ -25,7 +25,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
         opacity: 1,
         backgroundColor: 'white'
       })), transition('void <=> show', [
-        animate('1.5s')
+        animate('0.5s')
       ])
     ])
   ]
@@ -47,7 +47,6 @@ export class MainComponent implements OnInit {
           this.animationStatus = 'void';
           this.animationRun = true;
         }, 5000);
-        this.acSrv.indice++;
       } else {
         // FALSe
       }
@@ -60,6 +59,7 @@ export class MainComponent implements OnInit {
   cambiarTurno() {
     if (this.animationRun) {
       this.acSrv.currentTurnoValue(this.acSrv.indice);
+      this.acSrv.indice++;
     }
   }
 }
