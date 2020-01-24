@@ -1,4 +1,5 @@
 <div class=" d-flex flex-column align-items-center p-2 m-2 turnos">
-  <h5 class="text-white p-2 m-2 mt-4">Ultimas llamadas realizadas</h5>
-  <div *ngFor="let item of selTurnos" [@newTurn]="animationStatus" class="h3 p-2">{{item.turno}} - {{item.mesa}}</div>
+  <h3 class="text-white p-2 mt-2">Ultimas llamadas realizadas</h3>
+  <div *ngFor="let item of selTurnos" [@newTurn]="animationStatus" class="h2 p-1"><span
+      class="p-4 ml-2">{{item.turno}}</span><span class="p-4 mr-2">{{item.mesa}}</span></div>
 </div>

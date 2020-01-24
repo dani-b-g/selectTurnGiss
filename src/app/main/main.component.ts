@@ -16,7 +16,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
         opacity: 1
       })),
       transition('void <=> show', [
-        animate('1.2s')
+        animate('1.5s')
       ])
     ]), trigger('newTurnBg', [
       state('void', style({
@@ -25,7 +25,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
         opacity: 1,
         backgroundColor: 'white'
       })), transition('void <=> show', [
-        animate('1.2s')
+        animate('1.5s')
       ])
     ])
   ]
@@ -46,7 +46,7 @@ export class MainComponent implements OnInit {
         setTimeout(() => {
           this.animationStatus = 'void';
           this.animationRun = true;
-        }, 1200);
+        }, 5000);
         this.acSrv.indice++;
       } else {
         // FALSe
